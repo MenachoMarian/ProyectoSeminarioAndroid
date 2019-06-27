@@ -9,11 +9,14 @@
 
     <string name="menu_home">Registro</string>
     <string name="menu_gallery">Login</string>
-    <string name="menu_slideshow">Hogar</string>
+    <string name="menu_slideshow">Perfil</string>
     <string name="menu_tools">Trabajo</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_login">login</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_hogar">Hogar</string>
+    <string name="title_activity_producto">producto</string>
+    <string name="title_activity_perfil">perfil</string>
+    <string name="title_activity_lista_productos">lista_productos</string>
 
 </resources>

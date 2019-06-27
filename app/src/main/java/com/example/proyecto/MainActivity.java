@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity
                 startActivity(login);
                 break;
             }
-            case R.id.home: {
+            case R.id.perfil: {
+                Intent perfil = new Intent(this, perfil.class);
+                startActivity(perfil);
                 break;
             }
             case R.id.work: {

@@ -12,9 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".lista_productos"
+            android:label="@string/title_activity_lista_productos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".perfil"
+            android:label="@string/title_activity_perfil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".producto"
+            android:label="@string/title_activity_producto"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Hogar"
             android:label="@string/title_activity_hogar"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
