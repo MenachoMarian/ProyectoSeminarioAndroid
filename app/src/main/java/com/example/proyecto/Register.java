@@ -7,7 +7,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,7 +23,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static com.example.proyecto.Utils.REGISTER_USER;
 
-public class Register extends AppCompatActivity {
+public class Register extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class Register extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,13 +40,34 @@ public class Register extends AppCompatActivity {
                         .setAction("Action", null).show();
                 sendData();
             }
-        });
+        });*/
+        loadComponents();
+    }
+
+    private void loadComponents(){
+        Button btnregistro = findViewById(R.id.btnregistro);
+
+        btnregistro.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnregistro: {
+                Toast.makeText(Register.this, "Registrando usuario", Toast.LENGTH_SHORT).show();
+                sendData();
+                break;
+            }
+        }
+
     }
 
     private void sendData(){
         EditText names = findViewById(R.id.nombre);
         EditText emails = findViewById(R.id.email);
         EditText pass = findViewById(R.id.contraseña);
+
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -58,11 +81,13 @@ public class Register extends AppCompatActivity {
                 if (response.has("roles")){
                     Toast.makeText(Register.this, "Usuario registrado con exito", Toast.LENGTH_LONG).show();
                     Intent login = new Intent(Register.this, Login.class);
+
                     startActivity(login);
                 }
             }
         });
     }
+
 
 }
 

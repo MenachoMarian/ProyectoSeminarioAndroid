@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Hogar"
+    tools:showIn="@layout/activity_hogar">
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gabriela"
+            android:gravity="center"
+            android:text="Hogar"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/btnhome"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:backgroundTint="#00FAF7F7"
+            android:foregroundGravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/rombo"
+            tools:srcCompat="@drawable/rombo" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listhogar"
+        android:layout_width="0dp"
+        android:layout_height="581dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+</android.support.constraint.ConstraintLayout>

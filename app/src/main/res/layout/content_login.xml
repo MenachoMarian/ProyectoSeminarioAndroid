@@ -31,8 +31,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
-        android:layout_height="593dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="8dp"
@@ -57,5 +58,44 @@
             android:ems="10"
             android:hint="Contraseña"
             android:inputType="textPassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gabriela"
+            android:text="Ingresar" />
+
+        <TextView
+            android:id="@+id/txtregistro"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Si no posees una cuenta, puedes registrarte:" />
+
+        <Button
+            android:id="@+id/btnregistro_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gabriela"
+            android:text="Registrarse" />
+
+        <Button
+            android:id="@+id/btnregistrogoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gabriela"
+            android:text="Registrarse con Google" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

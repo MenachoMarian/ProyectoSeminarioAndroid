@@ -14,5 +14,6 @@
     <string name="title_activity_register">Register</string>
     <string name="title_activity_login">login</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_hogar">Hogar</string>
 
 </resources>
