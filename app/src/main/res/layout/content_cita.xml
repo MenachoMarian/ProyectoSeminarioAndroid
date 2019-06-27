@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Cita"
+    tools:showIn="@layout/activity_cita">
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="399dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtcita"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/gabriela"
+            android:gravity="center"
+            android:text="Registrar Cita"
+            android:textColor="#00BCD4" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="601dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha: "
+            android:textSize="9dp"
+            />
+
+        <DatePicker
+            android:id="@+id/fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:spinnersShown="false"
+            android:datePickerMode="spinner"></DatePicker>
+
+        <Button
+            android:id="@+id/btnhora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora: "
+            android:textSize="9dp" />
+
+        <TimePicker
+            android:id="@+id/hora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"></TimePicker>
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

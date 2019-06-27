@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Cita"
+            android:label="@string/title_activity_cita"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Hogar"
             android:label="@string/title_activity_hogar"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
