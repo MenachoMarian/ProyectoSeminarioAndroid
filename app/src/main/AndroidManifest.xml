@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-<<<<<<< HEAD
+
             android:name=".Cita"
             android:label="@string/title_activity_cita"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-=======
+
             android:name=".lista_productos"
             android:label="@string/title_activity_lista_productos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -30,7 +30,7 @@
             android:label="@string/title_activity_producto"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
->>>>>>> e47d980722e8e97fb033f8d2c10f1c05e1f8f3e6
+
             android:name=".Hogar"
             android:label="@string/title_activity_hogar"
             android:theme="@style/AppTheme.NoActionBar" />

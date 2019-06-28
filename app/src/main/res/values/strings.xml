@@ -15,12 +15,12 @@
     <string name="title_activity_login">login</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_hogar">Hogar</string>
-<<<<<<< HEAD
+
     <string name="title_activity_cita">Cita</string>
-=======
+
     <string name="title_activity_producto">producto</string>
     <string name="title_activity_perfil">perfil</string>
     <string name="title_activity_lista_productos">lista_productos</string>
->>>>>>> e47d980722e8e97fb033f8d2c10f1c05e1f8f3e6
+
 
 </resources>
