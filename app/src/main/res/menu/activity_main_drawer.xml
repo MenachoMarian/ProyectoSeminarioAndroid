@@ -16,10 +16,7 @@
             android:id="@+id/perfil"
             android:icon="@drawable/home"
             android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/work"
-            android:icon="@drawable/work"
-            android:title="@string/menu_tools" />
+
     </group>
 
 

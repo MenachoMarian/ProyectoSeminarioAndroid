@@ -57,6 +57,7 @@ public class Hogar extends AppCompatActivity {
         client.get(Utils.GET_PRODUCT, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
                 for (int i = 0; i < response.length(); i++){
                     try {
                         JSONObject obj = response.getJSONObject(i);

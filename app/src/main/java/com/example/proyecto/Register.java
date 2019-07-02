@@ -17,6 +17,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -78,7 +79,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         client.post(Utils.REGISTER_USER, params , new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                 if (response.has("roles")){
+                    try {
+                        Utils.ID_USER =response.getString("id");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(Register.this, "Usuario registrado con exito", Toast.LENGTH_LONG).show();
                     Intent login = new Intent(Register.this, Login.class);
 

@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -114,13 +115,18 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.perfil: {
-                Intent perfil = new Intent(this, perfil.class);
-                startActivity(perfil);
+                if (!Utils.TOKEN.equals("")){  //VERIFICAR SI EL USUARIO YA ACCEDIÓ CON SU CUENTA PARA PODER INGRESAR A SU PERFIL, SI EL TOKEN ESTÁ VACÍO NO INGRESÓ AÚN
+                    Intent perfil = new Intent(this, perfil.class);
+                    startActivity(perfil);
+
+                }else{
+                    Toast.makeText(this, "Ud. debe acceder con su cuenta para poder ingresar", Toast.LENGTH_LONG).show();
+                }
                 break;
             }
-            case R.id.work: {
+            /*case R.id.work: {
                 break;
-            }
+            }*/
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

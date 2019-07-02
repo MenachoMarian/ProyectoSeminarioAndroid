@@ -49,7 +49,7 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="0dp"
-        android:layout_height="208dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,22 +62,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Nombre del Producto" />
+            android:hint="Nombre producto"
+            android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/btncategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
 
         <EditText
-            android:id="@+id/categoria"
+            android:id="@+id/precio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Seleccionar Categoría" />
-
-        <EditText
-            android:id="@+id/precios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="Precio"
             android:inputType="number"
             android:visibility="visible" />
 
@@ -86,8 +85,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Cantidad de Stock disponible" />
+            android:hint="Cantidad stock "
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Descripción"
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView3"
@@ -100,7 +107,7 @@
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -111,13 +118,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/subim"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
 
@@ -132,8 +139,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="388dp"
-        android:layout_height="117dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -143,7 +150,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <Button
-            android:id="@+id/registrar"
+            android:id="@+id/btnregistropro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrar Producto" />

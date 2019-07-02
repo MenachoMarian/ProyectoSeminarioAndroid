@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class perfil extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,9 +30,14 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
         });
 
         loadComponents();
+        loadData();
     }
 
-        private void loadComponents(){
+    private void loadData() {
+
+    }
+
+    private void loadComponents(){
 
             ImageButton producto = findViewById(R.id.btnProduct);
             ImageButton perfil = findViewById(R.id.btnPerfil);
