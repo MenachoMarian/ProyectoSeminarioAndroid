@@ -14,11 +14,30 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    private ArrayList<String> list_data;
+    private ArrayAdapter<String> adapter;
+
+    private ListView lsproducts;
+    private Adaptadorlista adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +45,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        list_data = new ArrayList<>();
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,15 +64,21 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        
+
         loadComponents();
+        loadData();
     }
 
     private void loadComponents() {
 
         Button hogar = findViewById(R.id.hogarbtn);
-
+        Button trabajo = findViewById(R.id.trabajobtn);
+        Button otros = findViewById(R.id.otrosbtn);
         hogar.setOnClickListener(this);
+        trabajo.setOnClickListener(this);
+        otros.setOnClickListener(this);
+
+        //ListView lista = findViewById(R.id.productlist);
     }
 
     @Override
@@ -61,8 +90,52 @@ public class MainActivity extends AppCompatActivity
                 startActivity(hogarview);
                 break;
             }
+            case R.id.trabajobtn: {
+                Intent trabajoview = new Intent(MainActivity.this, Trabajo.class);
+                startActivity(trabajoview);
+                break;
+            }
+            case R.id.otrosbtn: {
+                Intent otrosview = new Intent(MainActivity.this, Otros.class);
+                startActivity(otrosview);
+                break;
+            }
         }
 
+    }
+
+    private void loadData() {
+        ListView lista = findViewById(R.id.listaprincipal);
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list_data);
+        lista.setAdapter(adapter);
+        //final ArrayList<Casillas> listap = new ArrayList<>();
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        //list_data.clear();
+        client.get(Utils.GET_PRODUCT, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++){
+                    try {
+
+                        JSONObject obj = response.getJSONObject(i);
+                        list_data.add(obj.getString("nombre"));
+                        list_data.add(obj.getString("precio"));
+                        list_data.add(obj.getString("categoria"));
+                        list_data.add(obj.getString("descripcion"));
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

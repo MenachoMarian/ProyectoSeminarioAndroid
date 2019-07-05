@@ -81,11 +81,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                 if (response.has("roles")){
-                    try {
+                    /*try {
                         Utils.ID_USER =response.getString("id");
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                     Toast.makeText(Register.this, "Usuario registrado con exito", Toast.LENGTH_LONG).show();
                     Intent login = new Intent(Register.this, Login.class);
 

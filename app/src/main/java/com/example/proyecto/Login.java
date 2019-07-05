@@ -74,10 +74,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void sendLogin() {
         EditText email = findViewById(R.id.email_txt);
-        EditText pass = findViewById(R.id.contraseña_txt);
+        final EditText pass = findViewById(R.id.contraseña_txt);
 
         AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
+        final RequestParams params = new RequestParams();
 
         params.add("email",email.getText().toString());
         params.add("contraseña",pass.getText().toString());
@@ -86,7 +86,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 if (response.has("token")){
                     try {
+                        //Utils.EMAIL_USER = response.getString("email");
                         Utils.TOKEN = response.getString("token");
+                        Utils.EMAIL_USER = pass.getText().toString();
                         Toast.makeText(Login.this, "Login exitoso", Toast.LENGTH_SHORT).show();
                         Intent home = new Intent(Login.this, MainActivity.class);
                         startActivity(home);
