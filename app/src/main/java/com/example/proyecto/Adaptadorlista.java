@@ -33,7 +33,8 @@ public class Adaptadorlista extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+
+         return position;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Adaptadorlista extends BaseAdapter {
             LayoutInflater inflate = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflate.inflate(R.layout.listaformato, null);
         }
-        ImageView img = convertView.findViewById(R.id.imgproducto);
+        //ImageView img = convertView.findViewById(R.id.imgproducto);
         TextView nombre = convertView.findViewById(R.id.txtnombrepro);
         TextView precio = convertView.findViewById(R.id.txtpreciopro);
 
@@ -50,6 +51,6 @@ public class Adaptadorlista extends BaseAdapter {
         nombre.setText(this.listaproductos.get(position).getNombrepro());
         precio.setText(this.listaproductos.get(position).getPreciopro());
 
-        return null;
+        return convertView;
     }
 }

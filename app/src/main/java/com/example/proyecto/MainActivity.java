@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +20,7 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -33,11 +37,8 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private ArrayList<String> list_data;
-    private ArrayAdapter<String> adapter;
-
-    private ListView lsproducts;
-    private Adaptadorlista adaptador;
+    private ArrayList<Casillas> list_data;
+    private Adaptadorlista adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        list_data = new ArrayList<>();
+        list_data = new ArrayList<Casillas>();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -71,12 +72,39 @@ public class MainActivity extends AppCompatActivity
 
     private void loadComponents() {
 
+
+        //Cargando adaptador
+        ListView lista = findViewById(R.id.listaprincipal);
+        adapter = new Adaptadorlista(this,list_data);
+        //adapter.notifyDataSetChanged();
+        lista.setAdapter(adapter);
+
+        //Cargando Botones
         Button hogar = findViewById(R.id.hogarbtn);
         Button trabajo = findViewById(R.id.trabajobtn);
         Button otros = findViewById(R.id.otrosbtn);
         hogar.setOnClickListener(this);
         trabajo.setOnClickListener(this);
         otros.setOnClickListener(this);
+
+        //PARTE EN LA QUE EL BUSCADOR (BUSCARÁ RESULTADOS)
+        TextView buscar = findViewById(R.id.buscar);
+        buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("TEXT", s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         //ListView lista = findViewById(R.id.productlist);
     }
@@ -96,7 +124,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.otrosbtn: {
-                Intent otrosview = new Intent(MainActivity.this, Otros.class);
+                Intent otrosview = new Intent(MainActivity.this, Otros .class);
                 startActivity(otrosview);
                 break;
             }
@@ -105,35 +133,25 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadData() {
-        ListView lista = findViewById(R.id.listaprincipal);
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list_data);
-        lista.setAdapter(adapter);
-        //final ArrayList<Casillas> listap = new ArrayList<>();
-
 
         AsyncHttpClient client = new AsyncHttpClient();
-        //list_data.clear();
         client.get(Utils.GET_PRODUCT, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-
+                list_data.clear();
                 for (int i = 0; i < response.length(); i++){
                     try {
-
                         JSONObject obj = response.getJSONObject(i);
-                        list_data.add(obj.getString("nombre"));
-                        list_data.add(obj.getString("precio"));
-                        list_data.add(obj.getString("categoria"));
-                        list_data.add(obj.getString("descripcion"));
+                        Casillas item = new Casillas();
+                        item.setNombrepro(obj.getString("nombre"));
+                        item.setPreciopro(obj.getString("precio"));
+                        list_data.add(item);
 
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-
-
-                adapter.notifyDataSetChanged();
+                } adapter.notifyDataSetChanged();
             }
         });
     }

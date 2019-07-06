@@ -50,12 +50,6 @@
                     android:textColor="#8BC34A"
                     android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/btndetalles"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:text="Detalles" />
             </LinearLayout>
 
         </LinearLayout>
