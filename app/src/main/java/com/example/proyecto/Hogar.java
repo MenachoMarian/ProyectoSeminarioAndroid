@@ -1,5 +1,6 @@
 package com.example.proyecto;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Hogar extends AppCompatActivity {
+public class Hogar extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ArrayList<Casillas> list_data;
     private Adaptadorlista adapter;
@@ -57,6 +59,9 @@ public class Hogar extends AppCompatActivity {
         adapter = new Adaptadorlista(this,list_data);
         //adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
+
+        //PARA ACCEDER A CADA ELEMENTO DE LA LISTA
+        lista.setOnItemClickListener(this);
 
     }
 
@@ -107,6 +112,7 @@ public class Hogar extends AppCompatActivity {
                             Casillas item = new Casillas();
                             item.setNombrepro(obj.getString("nombre"));
                             item.setPreciopro(obj.getString("precio"));
+                            item.setIdpro(obj.getString("_id"));
                             list_data.add(item);
                         }
 
@@ -119,4 +125,11 @@ public class Hogar extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String idpro = this.list_data.get(position).getIdpro();
+        Intent detallepro = new Intent(Hogar.this, Detalle_Producto.class);
+        detallepro.putExtra("idpro",idpro);
+        this.startActivity(detallepro);
+    }
 }

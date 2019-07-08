@@ -8,9 +8,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
 public class lista_productos extends AppCompatActivity implements View.OnClickListener{
+
+    private ArrayList<Casillas> list_data;
+    private Adaptadorlista adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +33,7 @@ public class lista_productos extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_lista_productos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        list_data = new ArrayList<Casillas>();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -28,11 +44,44 @@ public class lista_productos extends AppCompatActivity implements View.OnClickLi
             }
         });
             loadComponents();
+            loadData();
     }
 
     private void loadComponents(){
         Button btn3 = findViewById(R.id.btn3);
         btn3.setOnClickListener(this);
+
+        //Cargando adaptador
+        ListView lista = findViewById(R.id.listproducto);
+        adapter = new Adaptadorlista(this,list_data);
+        //adapter.notifyDataSetChanged();
+        lista.setAdapter(adapter);
+    }
+
+    private void loadData() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(Utils.GET_PRODUCT, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                list_data.clear();
+                for (int i = 0; i < response.length(); i++){
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+                        if (obj.getString("emailuser").equals(Utils.EMAIL_USER)){
+                            Casillas item = new Casillas();
+                            item.setNombrepro(obj.getString("nombre"));
+                            item.setPreciopro(obj.getString("precio"));
+                            list_data.add(item);
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } adapter.notifyDataSetChanged();
+            }
+        });
     }
 
 

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Otros"></activity>
+        <activity android:name=".Chat"></activity>
+        <activity android:name=".Detalle_Producto" />
+        <activity android:name=".Otros" />
         <activity android:name=".Trabajo" />
         <activity
             android:name=".Cita"

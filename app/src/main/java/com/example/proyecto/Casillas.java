@@ -5,6 +5,16 @@ public class Casillas {
     private String nombrepro;
     private String preciopro;
 
+    public String getIdpro() {
+        return idpro;
+    }
+
+    public void setIdpro(String idpro) {
+        this.idpro = idpro;
+    }
+
+    private String idpro;
+
 
     public Integer getImagen() {
         return imagen;
