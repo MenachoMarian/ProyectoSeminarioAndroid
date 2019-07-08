@@ -135,6 +135,8 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         ImageView imagen = findViewById(R.id.subim);
 
 
+        String email = Utils.EMAIL_USER; //recibiendo email del login
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         //params.add("idusuario",Utils.ID_USER);
@@ -143,6 +145,8 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         params.add("categoria",categoria.get(cats.getSelectedItemPosition()));
         params.add("stock",stocks.getText().toString());
         params.add("descripcion",descripciones.getText().toString());
+
+        params.add("emailuser",email); //introduciendo el email
 
         client.post(Utils.REGISTER_PRODUCT, params, new JsonHttpResponseHandler(){
             @Override

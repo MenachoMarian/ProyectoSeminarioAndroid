@@ -1,7 +1,10 @@
 package com.example.proyecto;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Otros extends AppCompatActivity {
+public class Otros extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ArrayList<Casillas> list_data;
     private Adaptadorlista adapter;
@@ -38,6 +41,9 @@ public class Otros extends AppCompatActivity {
         //adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
 
+        //PARA ACCEDER A CADA ELEMENTO DE LA LISTA
+        lista.setOnItemClickListener(this);
+
     }
 
     private void loadData() {
@@ -54,6 +60,7 @@ public class Otros extends AppCompatActivity {
                             Casillas item = new Casillas();
                             item.setNombrepro(obj.getString("nombre"));
                             item.setPreciopro(obj.getString("precio"));
+                            item.setIdpro(obj.getString("_id"));
                             list_data.add(item);
                         }
 
@@ -64,5 +71,13 @@ public class Otros extends AppCompatActivity {
                 } adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String idpro = this.list_data.get(position).getIdpro();
+        Intent detallepro = new Intent(Otros.this, Detalle_Producto.class);
+        detallepro.putExtra("idpro",idpro);
+        this.startActivity(detallepro);
     }
 }
