@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -99,8 +100,13 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btncita: {
-                Intent citaview = new Intent(Detalle_Producto.this, Cita.class);
-                startActivity(citaview);
+                if (!Utils.TOKEN.equals("")){  //VERIFICAR SI EL USUARIO YA ACCEDIÓ CON SU CUENTA PARA PODER INGRESAR A SU PERFIL, SI EL TOKEN ESTÁ VACÍO NO INGRESÓ AÚN
+                    Intent cita = new Intent(Detalle_Producto.this, Cita.class);
+                    startActivity(cita);
+
+                }else{
+                    Toast.makeText(this, "Ud. debe acceder con su cuenta para poder ingresar", Toast.LENGTH_LONG).show();
+                }
                 break;
             }
             case R.id.btnchat: {

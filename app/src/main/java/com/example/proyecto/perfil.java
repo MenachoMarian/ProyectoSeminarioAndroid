@@ -41,10 +41,11 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
 
             ImageButton producto = findViewById(R.id.btnProduct);
             ImageButton perfil = findViewById(R.id.btnPerfil);
-           // ImageButton sale = findViewById(R.id.btnSale);
+            ImageButton cita = findViewById(R.id.btncitas);
+
             producto.setOnClickListener(this);
             perfil.setOnClickListener(this);
-            //sale.setOnClickListener(this);
+            cita.setOnClickListener(this);
         }
 
 
@@ -57,16 +58,16 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
                 break;
             }*/
             case R.id.btnProduct:{
-                Intent listar_producto = new Intent(this, lista_productos.class);
+                Intent listar_producto = new Intent(perfil.this, lista_productos.class);
                 listar_producto.putExtra("msn","ver lista de Productos");
                 startActivity(listar_producto);
                 break;
             }
-            /*case R.id.btnSale:{
-                Intent sale = new Intent(this, lista_sale.class);
-                startActivity(sale);
+            case R.id.btncitas:{
+                Intent citas = new Intent(perfil.this, ListaCitas.class);
+                startActivity(citas);
                 break;
-            }*/
+            }
         }
     }
 }

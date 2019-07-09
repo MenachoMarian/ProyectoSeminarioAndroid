@@ -45,33 +45,42 @@
 
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnfecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/gabriela"
             android:text="Fecha: "
-            android:textSize="9dp"
-            />
+            android:textSize="12sp" />
 
-        <DatePicker
-            android:id="@+id/fecha"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/efecha"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:spinnersShown="false"
-            android:datePickerMode="spinner"></DatePicker>
+            android:ems="10"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/btnhora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/gabriela"
             android:text="Hora: "
-            android:textSize="9dp" />
+            android:textSize="12sp" />
 
-        <TimePicker
-            android:id="@+id/hora"
+        <EditText
+            android:id="@+id/ehora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnregistrocita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner"></TimePicker>
+            android:layout_gravity="center"
+            android:fontFamily="@font/gabriela"
+            android:text="Registrar" />
 
 
     </LinearLayout>
