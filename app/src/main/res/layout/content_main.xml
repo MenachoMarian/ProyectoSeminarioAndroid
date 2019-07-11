@@ -34,14 +34,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
-        <EditText
-            android:id="@+id/buscar"
+        <Button
+            android:id="@+id/btnbuscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="Buscar producto"
-            android:inputType="textPersonName" />
+            android:backgroundTint="#FF9800"
+            android:fontFamily="@font/gabriela"
+            android:text="Buscar productos" />
     </LinearLayout>
 
     <LinearLayout

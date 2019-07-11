@@ -47,7 +47,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
 
     private void loadData() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(Utils.GET_PRODUCT+"?id="+idprodu,new JsonHttpResponseHandler(){
+        client.get(Utils.GET_PRODUCT_ID+idprodu,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 

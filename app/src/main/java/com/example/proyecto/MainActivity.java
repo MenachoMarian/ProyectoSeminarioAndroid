@@ -87,28 +87,12 @@ public class MainActivity extends AppCompatActivity
         Button hogar = findViewById(R.id.hogarbtn);
         Button trabajo = findViewById(R.id.trabajobtn);
         Button otros = findViewById(R.id.otrosbtn);
+        Button buscar = findViewById(R.id.btnbuscar);
         hogar.setOnClickListener(this);
         trabajo.setOnClickListener(this);
         otros.setOnClickListener(this);
+        buscar.setOnClickListener(this);
 
-        //PARTE EN LA QUE EL BUSCADOR (BUSCARÁ RESULTADOS)
-        TextView buscar = findViewById(R.id.buscar);
-        buscar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("TEXT", s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         //ListView lista = findViewById(R.id.productlist);
     }
@@ -132,6 +116,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.otrosbtn: {
                 Intent otrosview = new Intent(MainActivity.this, Otros .class);
                 startActivity(otrosview);
+                break;
+            }
+            case R.id.btnbuscar: {
+                Intent buscar = new Intent(MainActivity.this, BuscarProducto .class);
+                startActivity(buscar);
                 break;
             }
         }

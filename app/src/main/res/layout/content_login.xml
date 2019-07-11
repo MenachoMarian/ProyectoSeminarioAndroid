@@ -91,11 +91,9 @@
             android:fontFamily="@font/gabriela"
             android:text="Registrarse" />
 
-        <Button
-            android:id="@+id/btnregistrogoogle"
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btngoogle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gabriela"
-            android:text="Registrarse con Google" />
+            android:layout_height="match_parent"></com.google.android.gms.common.SignInButton>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
