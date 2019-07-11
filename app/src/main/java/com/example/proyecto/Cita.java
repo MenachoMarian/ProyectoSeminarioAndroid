@@ -31,6 +31,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class Cita extends AppCompatActivity implements View.OnClickListener{
     EditText efecha,ehora;
+   // Button btnfecha, btnregistrocita;
     private int dia,mes,anio,hora,minutos;
 
     @Override

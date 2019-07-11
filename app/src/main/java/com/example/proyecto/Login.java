@@ -54,14 +54,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
         //Button btnlogin = findViewById(R.id.btnlogin);
 
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Snackbar.make(view, "Ingresando", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                    //sendLogin();
-            }
-        });*/
+        //fab.setOnClickListener(new View.OnClickListener() {
+        //@Override
+        //public void onClick(View view) {
+        //Snackbar.make(view, "Ingresando", Snackbar.LENGTH_LONG)
+        //.setAction("Action", null).show();
+        ////sendLogin();
+        //}
+        //});
         loadComponents();
     }
 
