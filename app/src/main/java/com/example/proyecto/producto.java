@@ -1,7 +1,9 @@
 package com.example.proyecto;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ImageView;
+import android.view.View.OnClickListener;
+import android.graphics.Bitmap;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,6 +32,11 @@ import cz.msebera.android.httpclient.Header;
 public class producto extends AppCompatActivity implements View.OnClickListener {
     ArrayList<String> categoria;
 
+    Button btn;
+    ImageView img;
+    Intent i ;
+    Bitmap bmp;
+    final static int cons = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +56,16 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         loadComponents();
     }
 
+    public void init (){
+        btn = (Button) findViewById(R.id.subimg);
+        btn.setOnClickListener(this);
+        img =(ImageView)findViewById(R.id.subim);
+
+    }
+
     private void loadComponents() {
         Button btnregistrarpro = findViewById(R.id.btnregistropro);
-
         btnregistrarpro.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -62,8 +76,25 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
                 sendData();
                 break;
             }
+            case R.id.subimg:{
+                i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i,cons);
+                break;
+            }
         }
 
+    }
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            Bundle extra = data.getExtras();
+            bmp = (Bitmap) extra.get("data");
+            img.setImageBitmap(bmp);
+        }
     }
 
     private void sendData() {
