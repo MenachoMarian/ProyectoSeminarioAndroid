@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,9 +17,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -31,13 +36,10 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ArrayList<String> list_data;
-    private ArrayAdapter<String> adapter;
-
-    private ListView lsproducts;
-    private Adaptadorlista adaptador;
+    private ArrayList<Casillas> list_data;
+    private Adaptadorlista adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        list_data = new ArrayList<>();
+        list_data = new ArrayList<Casillas>();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -71,15 +73,31 @@ public class MainActivity extends AppCompatActivity
 
     private void loadComponents() {
 
+        //Cargando adaptador
+        ListView lista = findViewById(R.id.listaprincipal);
+        adapter = new Adaptadorlista(this,list_data);
+        //adapter.notifyDataSetChanged();
+        lista.setAdapter(adapter);
+
+        //PARA ACCEDER A CADA ELEMENTO DE LA LISTA
+        lista.setOnItemClickListener(this);
+
+
+        //Cargando Botones
         Button hogar = findViewById(R.id.hogarbtn);
         Button trabajo = findViewById(R.id.trabajobtn);
         Button otros = findViewById(R.id.otrosbtn);
+        Button buscar = findViewById(R.id.btnbuscar);
         hogar.setOnClickListener(this);
         trabajo.setOnClickListener(this);
         otros.setOnClickListener(this);
+        buscar.setOnClickListener(this);
+
 
         //ListView lista = findViewById(R.id.productlist);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -96,8 +114,13 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.otrosbtn: {
-                Intent otrosview = new Intent(MainActivity.this, Otros.class);
+                Intent otrosview = new Intent(MainActivity.this, Otros .class);
                 startActivity(otrosview);
+                break;
+            }
+            case R.id.btnbuscar: {
+                Intent buscar = new Intent(MainActivity.this, BuscarProducto .class);
+                startActivity(buscar);
                 break;
             }
         }
@@ -105,35 +128,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadData() {
-        ListView lista = findViewById(R.id.listaprincipal);
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list_data);
-        lista.setAdapter(adapter);
-        //final ArrayList<Casillas> listap = new ArrayList<>();
-
 
         AsyncHttpClient client = new AsyncHttpClient();
-        //list_data.clear();
         client.get(Utils.GET_PRODUCT, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-
+                list_data.clear();
                 for (int i = 0; i < response.length(); i++){
                     try {
-
                         JSONObject obj = response.getJSONObject(i);
-                        list_data.add(obj.getString("nombre"));
-                        list_data.add(obj.getString("precio"));
-                        list_data.add(obj.getString("categoria"));
-                        list_data.add(obj.getString("descripcion"));
+                        Casillas item = new Casillas();
+                        item.setNombrepro(obj.getString("nombre"));
+                        item.setPreciopro(obj.getString("precio"));
+                        item.setIdpro(obj.getString("_id"));
+                        list_data.add(item);
 
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-
-
-                adapter.notifyDataSetChanged();
+                } adapter.notifyDataSetChanged();
             }
         });
     }
@@ -208,4 +222,14 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+//RECUPERAR EL ELEMENTO DE CADA PRODUCTO
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String idpro = this.list_data.get(position).getIdpro();
+        String nompro = this.list_data.get(position).getNombrepro();
+        Intent detallepro = new Intent(MainActivity.this, Detalle_Producto.class);
+        detallepro.putExtra("idpro",idpro);
+        this.startActivity(detallepro);
+    }
 }

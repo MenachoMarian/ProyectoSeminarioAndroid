@@ -22,5 +22,7 @@
     <string name="title_activity_perfil">perfil</string>
     <string name="title_activity_lista_productos">lista_productos</string>
 
+    <string name="error_login">El sistema no puede conectarse a google </string>
+
 
 </resources>

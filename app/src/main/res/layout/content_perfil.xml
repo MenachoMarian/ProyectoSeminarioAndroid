@@ -79,13 +79,14 @@
                 android:layout_height="10dp"
                 android:layout_weight="1" />
 
-            <ImageView
-                android:id="@+id/btnSale"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
+            <ImageButton
+                android:id="@+id/btncitas"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/product"
-                tools:srcCompat="@drawable/product" />
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/clipboard" />
+
         </LinearLayout>
     </LinearLayout>
 

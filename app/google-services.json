@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "94537287933",
+    "firebase_url": "https://proyecto-seminario-b4583.firebaseio.com",
+    "project_id": "proyecto-seminario-b4583",
+    "storage_bucket": "proyecto-seminario-b4583.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94537287933:android:72e97bf680c71e15",
+        "android_client_info": {
+          "package_name": "com.example.proyecto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94537287933-4oc3df48968pt9cu2c5ov10mkrcjmrgc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyecto",
+            "certificate_hash": "86c6ecf73d45e27b813014c401c9897513e35ea5"
+          }
+        },
+        {
+          "client_id": "94537287933-n037spag14611479k3hmu9v8mto27spj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGKwK4Cso18IQtwC-IabScZfUlc7RHTPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94537287933-n037spag14611479k3hmu9v8mto27spj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
