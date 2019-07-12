@@ -21,7 +21,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class Detalle_Producto extends AppCompatActivity implements View.OnClickListener {
 
-    private String idprodu;
+    private String idprodu,nompro;
     protected TextView titulo,descripcion,estado,precio;
     protected ImageView imagen;
     //protected EditText cantidad;-------------------
@@ -35,8 +35,9 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         root = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle__producto);
-//RECUPERANDO EL ID DEL PRODUCTO QUE SE ENVIA AL HACER CLICK
+//RECUPERANDO EL ID Y EL NOMBRE DEL PRODUCTO QUE SE ENVIA AL HACER CLICK
         idprodu = this.getIntent().getExtras().getString("idpro");
+       //nompro = this.getIntent().getExtras().getString("nompro");
 //CARGAR COMPONENTES
         loadComponents();
  //PEDIR DATOS AL SERVIDOR
@@ -59,6 +60,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
                         String precio = obj.getString("precio");
                         String estado = obj.getString("estado");
                         String idpro = obj.getString("_id");
+                        nompro = obj.getString("nombre");
                         INFO = new DetalleProductoClase(titulo,descripcion,precio,estado,idpro);
                         root.cargarInformacion();
                     } catch (JSONException e) {
@@ -102,6 +104,8 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
             case R.id.btncita: {
                 if (!Utils.TOKEN.equals("")){  //VERIFICAR SI EL USUARIO YA ACCEDIÓ CON SU CUENTA PARA PODER INGRESAR A SU PERFIL, SI EL TOKEN ESTÁ VACÍO NO INGRESÓ AÚN
                     Intent cita = new Intent(Detalle_Producto.this, Cita.class);
+                    cita.putExtra("idpro",idprodu);
+                    cita.putExtra("nombre",nompro);
                     startActivity(cita);
 
                 }else{

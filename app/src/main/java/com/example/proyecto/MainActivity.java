@@ -227,6 +227,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String idpro = this.list_data.get(position).getIdpro();
+        String nompro = this.list_data.get(position).getNombrepro();
         Intent detallepro = new Intent(MainActivity.this, Detalle_Producto.class);
         detallepro.putExtra("idpro",idpro);
         this.startActivity(detallepro);
