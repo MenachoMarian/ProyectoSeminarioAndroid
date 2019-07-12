@@ -44,10 +44,14 @@ public class AdaptadorListaCitas extends BaseAdapter {
         //ImageView img = convertView.findViewById(R.id.imgproducto);
         TextView fecha = convertView.findViewById(R.id.txtfecha);
         TextView hora = convertView.findViewById(R.id.txthora);
+        TextView nombre = convertView.findViewById(R.id.txtnombreproducto);
+        TextView cantidad = convertView.findViewById(R.id.txtcantidadproducto);
 
         //img.setImageResource(this.listaproductos.get(position).getImagen());
         fecha.setText(this.listacitas.get(position).getFecha());
         hora.setText(this.listacitas.get(position).getHora());
+        nombre.setText(this.listacitas.get(position).getNombrepro());
+        cantidad.setText(this.listacitas.get(position).getCantidad());
 
         return convertView;
     }

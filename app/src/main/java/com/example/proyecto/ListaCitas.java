@@ -52,6 +52,8 @@ public class ListaCitas extends AppCompatActivity {
                             CitaConstructor item = new CitaConstructor();
                             item.setFecha(obj.getString("fecha"));
                             item.setHora(obj.getString("hora"));
+                            item.setNombrepro(obj.getString("nompreproducto"));
+                            item.setCantidad(obj.getString("cantidadprodu"));
                             list_data.add(item);
                         }
 

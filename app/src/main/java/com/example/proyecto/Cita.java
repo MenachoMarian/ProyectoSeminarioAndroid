@@ -13,6 +13,7 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.DatePicker;
@@ -30,9 +31,12 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 
 public class Cita extends AppCompatActivity implements View.OnClickListener{
-    EditText efecha,ehora;
+    private String idprodu, nompro;
+    TextView nomproducto;
+    EditText efecha,ehora,cantidad;
    // Button btnfecha, btnregistrocita;
     private int dia,mes,anio,hora,minutos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,11 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_cita);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //RECUPERANDO EL ID y el nombre DEL PRODUCTO QUE SE ENVIA AL HACER CLICK
+        idprodu = this.getIntent().getExtras().getString("idpro");
+        nompro = this.getIntent().getExtras().getString("nombre");
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +66,8 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
     private void loadComponents(){
         this.efecha = findViewById(R.id.efecha);
         this.ehora = findViewById(R.id.ehora);
+        this.cantidad = findViewById(R.id.cantidadcita);
+        this.nomproducto = findViewById(R.id.txtnombrecita);
 
         Button btnhora = findViewById(R.id.btnhora);
         Button btnfecha = findViewById(R.id.btnfecha);
@@ -65,6 +76,10 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         btnfecha.setOnClickListener(this);
         btnhora.setOnClickListener(this);
         btnregistro.setOnClickListener(this);
+
+        nomproducto.setText(nompro);
+
+
 
     }
 
@@ -118,6 +133,9 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         params.add("fecha",efecha.getText().toString());
         params.add("hora",ehora.getText().toString());
         params.add("emailuser",email);
+        params.add("idpro",idprodu);
+        params.add("nompreproducto",nompro);
+        params.add("cantidadprodu",cantidad.getText().toString());
 
         client.post(Utils.REGISTER_CITA, params,new JsonHttpResponseHandler(){
             @Override

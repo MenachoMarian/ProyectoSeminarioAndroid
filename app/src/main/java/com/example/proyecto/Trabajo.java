@@ -75,6 +75,7 @@ public class Trabajo extends AppCompatActivity implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String idpro = this.list_data.get(position).getIdpro();
+        String nompro = this.list_data.get(position).getNombrepro();
         Intent detallepro = new Intent(Trabajo.this, Detalle_Producto.class);
         detallepro.putExtra("idpro",idpro);
         this.startActivity(detallepro);
