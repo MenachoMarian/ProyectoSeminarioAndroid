@@ -1,13 +1,10 @@
 package com.example.proyecto;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +24,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-
 public class Login extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
-
     private GoogleApiClient client;
     private int GOOGLE_CODE = 11235;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +34,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         //PARTE PARA REGISTRARSE CON GOOGLE
-        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions options = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         client = new GoogleApiClient.Builder(this)
@@ -52,26 +45,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        //Button btnlogin = findViewById(R.id.btnlogin);
+        /*Button btnlogin = findViewById(R.id.btnlogin);
 
-        //fab.setOnClickListener(new View.OnClickListener() {
-        //@Override
-        //public void onClick(View view) {
-        //Snackbar.make(view, "Ingresando", Snackbar.LENGTH_LONG)
-        //.setAction("Action", null).show();
-        ////sendLogin();
-        //}
-        //});
+        fab.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+        Snackbar.make(view, "Ingresando", Snackbar.LENGTH_LONG)
+        .setAction("Action", null).show();
+        sendLogin();
+        }
+        });*/
         loadComponents();
     }
+
 
     private void loadComponents(){
         Button btnlogin = findViewById(R.id.btnlogin);
         Button btnregistro = findViewById(R.id.btnregistro_txt);
-        SignInButton googlebtn = (SignInButton)this.findViewById(R.id.btngoogle);
-
         btnlogin.setOnClickListener(this);
         btnregistro.setOnClickListener(this);
+        //escoger el boton de google
+        SignInButton googlebtn = (SignInButton)this
+                .findViewById(R.id.btngoogle);
         googlebtn.setOnClickListener(this);
 
     }
@@ -90,31 +85,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 break;
             }
             case R.id.btngoogle: {
-                Intent google = Auth.GoogleSignInApi.getSignInIntent(client);
+                Intent google = Auth.GoogleSignInApi
+                        .getSignInIntent(client);
                 startActivityForResult(google, GOOGLE_CODE);
                 break;
             }
         }
-
     }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GOOGLE_CODE){
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()){
-                /*Intent loginr = new Intent(Login.this, RegistroGoogle.class);
+                Intent loginr = new Intent(Login.this, RegistroGoogle.class);
                 loginr.putExtra("nombre",result.getSignInAccount().getDisplayName());
                 loginr.putExtra("email",result.getSignInAccount().getEmail());
-                startActivity(loginr);*/
+                startActivity(loginr);
                 Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show();
             }
         }
     }
-
+ //Datos desde la base de datos
     private void sendLogin() {
         final EditText email = findViewById(R.id.email_txt);
         final EditText pass = findViewById(R.id.contraseña_txt);

@@ -1,11 +1,9 @@
 package com.example.proyecto;
-
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,18 +16,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-
 public class Detalle_Producto extends AppCompatActivity implements View.OnClickListener {
 
     private String idprodu;
     protected TextView titulo,descripcion,estado,precio;
     protected ImageView imagen;
     //protected EditText cantidad;-------------------
-
     private Detalle_Producto root;
-
     protected DetalleProductoClase INFO;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         root = this;
@@ -59,6 +53,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
                         String precio = obj.getString("precio");
                         String estado = obj.getString("estado");
                         String idpro = obj.getString("_id");
+                        //String imagen = obj.getInt("");
                         INFO = new DetalleProductoClase(titulo,descripcion,precio,estado,idpro);
                         root.cargarInformacion();
                     } catch (JSONException e) {
@@ -75,25 +70,21 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         this.descripcion.setText(INFO.getDescripcion());
         this.precio.setText(INFO.getPrecio());
         this.estado.setText(INFO.getEstado());
+        //this.imagen.setImageBitmap(INFO.getEstado() );
     }
 
     private void loadComponents() {
-
         //CARGANDO COMPONENTES
         this.titulo = findViewById(R.id.txttitulo);
         this.imagen = findViewById(R.id.imgbig);
         this.descripcion = findViewById(R.id.txtdescripcion);
         this.precio = findViewById(R.id.txtprecio);
         this.estado = findViewById(R.id.txtestado);
-
-
-
         //Botones
         Button btncita = findViewById(R.id.btncita);
         Button btnchat = findViewById(R.id.btnchat);
         btncita.setOnClickListener(this);
         btnchat.setOnClickListener(this);
-
     }
 
     @Override

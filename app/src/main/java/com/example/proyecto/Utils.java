@@ -9,6 +9,7 @@ public class Utils {
     public static String REGISTER_PRODUCT = HOST + "/v1.0/api/product";
     public static String SEARCH_PRODUCT = HOST + "/v1.0/api/product?nombre=cadena";
     public static String GET_PRODUCT_ID = HOST + "/v1.0/api/product?id=";
+   // public static String GET_IMAGEN = HOST + "/v1.0/api/imagen";
 
     public static String REGISTER_CITA = HOST + "/v1.0/api/cita";
     public static String GET_CITA = HOST + "/v1.0/api/cita";

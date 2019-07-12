@@ -32,8 +32,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class producto extends AppCompatActivity implements View.OnClickListener {
-
-            //declarar variables
+     //declarar variables
         Button btn;
         ArrayList<String> categoria;
         ImageView image;
@@ -42,7 +41,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         Adapter_menu men;
         //RecyclerView recycler;
         GridLayoutManager lay;
-       private final int CODE_PERMISSIONS = 101;
+        private final int CODE_PERMISSIONS = 101;
         final static int cons = 0;
 
         @Override
@@ -69,52 +68,29 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
            // recycler = findViewById(R.id.recyclerId);
             //cargar();
         }
+        //permisos de uso de camara y almacenamiento
+        private void checkPermissionForCameraAndStorage() {
+            if (Build.VERSION.SDK_INT<= Build.VERSION_CODES.M){
+                return;
+            }
+            if (this.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ){
+                return;
+            }else{
+                this.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},99);
 
-    private void checkPermissionForCameraAndStorage() {
-        if (Build.VERSION.SDK_INT<= Build.VERSION_CODES.M){
+            }
             return;
         }
-        if (this.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ){
-            return;
-        }else{
-            this.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},99);
-
-        }
-        return;
-
-    }
-
-    //recuperamos variables
+        //fin de permisos de camara y almacenamiento
+        //recuperamos variables
         private void loadComponents() {
             Button btnregistrarpro = findViewById(R.id.btnregistropro);
             btnregistrarpro.setOnClickListener(this);
             //parte de camara
             btn = (Button)findViewById(R.id.subimg);
             btn.setOnClickListener(this);
-            image = (ImageView)findViewById(R.id.subim);
+            image = findViewById(R.id.subim);
         }
-
-        //cargar imagen
-        /*
-        private void cargar() {
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.get(Utils.HOST+"image",null,new JsonHttpResponseHandler(){
-                @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray response){
-                            super.onSuccess(statusCode , headers,response);
-                            for(int i=0;i<response.length();i++){
-                                try {
-                                    JSONObject dat = response.getJSONObject(i);
-                                    String url = dat.getString("url");
-                                    men.add(new item(url));
-                                }catch (JSONException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                }
-            });
-        }*/
-        //hasta aqui cargar imagen
 
         @Override
         public void onClick(View v) {
@@ -183,35 +159,6 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-        //enviar Datos
-        /*
-        private void enviarDatos(){
-            if (path == null || path == ""){
-                Toast.makeText(this,"cargar imagen");
-                return;
-            }
-            File file = new File (path);
-            try {
-                params.put("img",file);
-            }catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-            Toast.makeText(getApplicationContext(),path,Toast.LENGTH_SHORT).show();
-            client.post(Utils.HOST+"image",params,(JsonHttpResponseHandler) super.onSuccess(statusCode,headers,response);
-            try {
-                String mesagge = response.getString ("menssage")
-                if (mesagge!= null) {
-                    Toast.makeText(getApplicationContext(),mesagge,Toast.LENGTH_SHORT).show();
-                }
-
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-            );
-
-        }
-    */
-        //hasta aqui datos enviados
 
         private void  setSpinner(){ //Adaptador para la categoría
             categoria = new ArrayList<>();
@@ -230,11 +177,10 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         EditText stocks = findViewById(R.id.stock);
         EditText descripciones = findViewById(R.id.descripcion);
         Spinner cats = findViewById(R.id.btncategoria);
-        ImageView image= findViewById(R.id.subim);
 
+        ImageView image = findViewById(R.id.subim);
 
         String email = Utils.EMAIL_USER; //recibiendo email del login
-
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         //params.add("idusuario",Utils.ID_USER);
@@ -243,7 +189,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         params.add("categoria",categoria.get(cats.getSelectedItemPosition()));
         params.add("stock",stocks.getText().toString());
         params.add("descripcion",descripciones.getText().toString());
-
+        params.add("imagen" , image.getImageMatrix().toShortString());//no sale
         params.add("emailuser",email); //introduciendo el email
 
         client.post(Utils.REGISTER_PRODUCT, params, new JsonHttpResponseHandler(){

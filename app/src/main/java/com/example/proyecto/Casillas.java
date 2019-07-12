@@ -1,18 +1,16 @@
 package com.example.proyecto;
 
 public class Casillas {
-    private  Integer imagen;
+    private Integer imagen;
     private String nombrepro;
     private String preciopro;
 
     public String getIdpro() {
         return idpro;
     }
-
     public void setIdpro(String idpro) {
         this.idpro = idpro;
     }
-
     private String idpro;
 
 
