@@ -1,7 +1,11 @@
 package com.example.proyecto;
 
+<<<<<<< HEAD
+import android.app.Activity;
+=======
 import android.Manifest;
 import android.content.DialogInterface;
+>>>>>>> 50591c56535cff573fcbe254e10b0d9f1bd5803a
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,7 +13,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+<<<<<<< HEAD
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+=======
 import android.support.v7.app.AlertDialog;
+>>>>>>> 50591c56535cff573fcbe254e10b0d9f1bd5803a
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +29,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ImageView;
+import android.view.View.OnClickListener;
+import android.graphics.Bitmap;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,6 +44,45 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class producto extends AppCompatActivity implements View.OnClickListener {
+<<<<<<< HEAD
+    ArrayList<String> categoria;
+
+    Button btn;
+    ImageView img;
+    Intent i ;
+    Bitmap bmp;
+    final static int cons = 0;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_producto);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /*FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Registro en proceso", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+        setSpinner();
+        loadComponents();
+    }
+
+    public void init (){
+        btn = (Button) findViewById(R.id.subimg);
+        btn.setOnClickListener(this);
+        img =(ImageView)findViewById(R.id.subim);
+
+    }
+
+    private void loadComponents() {
+        Button btnregistrarpro = findViewById(R.id.btnregistropro);
+        btnregistrarpro.setOnClickListener(this);
+    }
+=======
      //declarar variables
         Button btn;
         ArrayList<String> categoria;
@@ -139,6 +190,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             this.startActivityForResult(camera,COD_CAMERA);
         }
+>>>>>>> 50591c56535cff573fcbe254e10b0d9f1bd5803a
 
     @Override
 
@@ -156,6 +208,23 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
                 Bitmap img = (Bitmap) infornation.get("data");
                 image.setImageBitmap(img);
             }
+            case R.id.subimg:{
+                i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i,cons);
+                break;
+            }
+        }
+    }
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            Bundle extra = data.getExtras();
+            bmp = (Bitmap) extra.get("data");
+            img.setImageBitmap(bmp);
         }
     }
 
