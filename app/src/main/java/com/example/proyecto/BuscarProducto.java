@@ -1,11 +1,10 @@
 package com.example.proyecto;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +82,7 @@ public class BuscarProducto extends AppCompatActivity implements AdapterView.OnI
                             Casillas item = new Casillas();
                             item.setNombrepro(obj.getString("nombre"));
                             item.setPreciopro(obj.getString("precio"));
+                            item.setImagen(obj.getInt("imagen"));
                             item.setIdpro(obj.getString("_id"));
                             list_data.add(item);
                         }

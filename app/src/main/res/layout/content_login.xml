@@ -25,7 +25,7 @@
             android:fontFamily="@font/gabriela"
             android:gravity="center"
             android:text="Login"
-            android:textColor="#00BCD4"
+            android:textColor="#CDDC39"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -52,12 +52,13 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/contraseña_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Contraseña"
-            android:inputType="textPassword" />
+        android:id="@+id/contraseña_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -90,10 +91,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/gabriela"
             android:text="Registrarse" />
-
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btngoogle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.google.android.gms.common.SignInButton>
+            android:layout_height="match_parent"
+            android:textAlignment="center">
+        </com.google.android.gms.common.SignInButton>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

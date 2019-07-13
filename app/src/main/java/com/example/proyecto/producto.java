@@ -1,8 +1,12 @@
 package com.example.proyecto;
 
+
+import android.app.Activity;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,8 +17,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+
 import android.support.v4.content.FileProvider;
+
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+
+
 import android.support.v7.app.AlertDialog;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +36,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ImageView;
+import android.view.View.OnClickListener;
+import android.graphics.Bitmap;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -41,8 +55,51 @@ import cz.msebera.android.httpclient.Header;
 
 public class producto extends AppCompatActivity implements View.OnClickListener {
 
-            //declarar variables
-        Button btn;
+    ArrayList<String> categoria;
+
+    Button btn;
+    ImageView img;
+    Intent i ;
+    Bitmap bmp;
+    Adapter_menu men;
+    final static int cons = 0;
+
+    //RecyclerView recycler;
+    GridLayoutManager lay;
+    private final int CODE_PERMISSIONS = 101;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_producto);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /*FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Registro en proceso", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+        setSpinner();
+        loadComponents();
+    }
+
+    public void init (){
+        btn = (Button) findViewById(R.id.subimg);
+        btn.setOnClickListener(this);
+        img =(ImageView)findViewById(R.id.subim);
+
+    }
+
+    /*private void loadComponents() {
+        Button btnregistrarpro = findViewById(R.id.btnregistropro);
+        btnregistrarpro.setOnClickListener(this);
+
+    }*/
+     //declarar variables
+        /*Button btn;
         ArrayList<String> categoria;
         ImageView image;
         Intent i;
@@ -50,11 +107,11 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         Adapter_menu men;
         //RecyclerView recycler;
         GridLayoutManager lay;
-       private final int CODE_PERMISSIONS = 101;
+        private final int CODE_PERMISSIONS = 101;
         final static int cons = 0;
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
+        /*protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_producto);
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -71,58 +128,35 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
                             .setAction("Action", null).show();
                 }
             });*/
-            setSpinner();
-            loadComponents();
+            //setSpinner();
+            //loadComponents();
         //empezamos con la configuracion de los adaptadores Adapter_menu, item
            // recycler = findViewById(R.id.recyclerId);
             //cargar();
-        }
+        //}
+        //permisos de uso de camara y almacenamiento
+        private void checkPermissionForCameraAndStorage() {
+            if (Build.VERSION.SDK_INT<= Build.VERSION_CODES.M){
+                return;
+            }
+            if (this.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ){
+                return;
+            }else{
+                this.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},99);
 
-    private void checkPermissionForCameraAndStorage() {
-        if (Build.VERSION.SDK_INT<= Build.VERSION_CODES.M){
+            }
             return;
         }
-        if (this.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED || this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ){
-            return;
-        }else{
-            this.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},99);
-
-        }
-        return;
-
-    }
-
-    //recuperamos variables
+        //fin de permisos de camara y almacenamiento
+        //recuperamos variables
         private void loadComponents() {
             Button btnregistrarpro = findViewById(R.id.btnregistropro);
             btnregistrarpro.setOnClickListener(this);
             //parte de camara
             btn = (Button)findViewById(R.id.subimg);
             btn.setOnClickListener(this);
-            image = (ImageView)findViewById(R.id.subim);
+            img = findViewById(R.id.subim);
         }
-
-        //cargar imagen
-        /*
-        private void cargar() {
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.get(Utils.HOST+"image",null,new JsonHttpResponseHandler(){
-                @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray response){
-                            super.onSuccess(statusCode , headers,response);
-                            for(int i=0;i<response.length();i++){
-                                try {
-                                    JSONObject dat = response.getJSONObject(i);
-                                    String url = dat.getString("url");
-                                    men.add(new item(url));
-                                }catch (JSONException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                }
-            });
-        }*/
-        //hasta aqui cargar imagen
 
         @Override
         public void onClick(View v) {
@@ -183,6 +217,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
             startActivityForResult(camera, COD_CAMERA);
         }
 
+
     @Override
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data ){
@@ -190,58 +225,35 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         if (COD_GALERIA == requestCode){
             if (data != null){
                 Uri imgPath=data.getData();
-                image.setImageURI(imgPath);
+                img.setImageURI(imgPath);
                 path = getRealPathFromURI(this,imgPath);
                 Toast.makeText(producto.this, path, Toast.LENGTH_SHORT).show();
             }
         }
         if (COD_CAMERA == requestCode){
-            /*if (data != null){
-                Bundle infornation = data.getExtras();
-                Bitmap img = (Bitmap) infornation.get("data");
-                image.setImageBitmap(img);
-            }*/
             loadImageCamera();
         }
     }
 
     private void loadImageCamera() {
         Bitmap imgag = BitmapFactory.decodeFile(path);
-        if(image != null) {
-            image.setImageBitmap(imgag);
-
-        }
+        if(img != null) {
+            img.setImageBitmap(imgag);
+            }
     }
+   /* @Override
 
-        //enviar Datos
-        /*
-        private void enviarDatos(){
-            if (path == null || path == ""){
-                Toast.makeText(this,"cargar imagen");
-                return;
-            }
-            File file = new File (path);
-            try {
-                params.put("img",file);
-            }catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-            Toast.makeText(getApplicationContext(),path,Toast.LENGTH_SHORT).show();
-            client.post(Utils.HOST+"image",params,(JsonHttpResponseHandler) super.onSuccess(statusCode,headers,response);
-            try {
-                String mesagge = response.getString ("menssage")
-                if (mesagge!= null) {
-                    Toast.makeText(getApplicationContext(),mesagge,Toast.LENGTH_SHORT).show();
-                }
-
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-            );
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            Bundle extra = data.getExtras();
+            bmp = (Bitmap) extra.get("data");
+            img.setImageBitmap(bmp);
         }
-    */
-        //hasta aqui datos enviados
+    }*/
+
 
         private void  setSpinner(){ //Adaptador para la categoría
             categoria = new ArrayList<>();
@@ -264,10 +276,11 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         EditText stocks = findViewById(R.id.stock);
         EditText descripciones = findViewById(R.id.descripcion);
         Spinner cats = findViewById(R.id.btncategoria);
-        ImageView image= findViewById(R.id.subim);
 
+        ImageView image = findViewById(R.id.subim);
 
         String email = Utils.EMAIL_USER; //recibiendo email del login
+
 
         if (path == null || path.equals("") ){
             Toast.makeText(this, "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
@@ -282,7 +295,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         params.add("categoria",categoria.get(cats.getSelectedItemPosition()));
         params.add("stock",stocks.getText().toString());
         params.add("descripcion",descripciones.getText().toString());
-
+        //params.add("imagen" , image.getImageMatrix().toShortString());//no sale
         params.add("emailuser",email); //introduciendo el email
 
         client.post(Utils.REGISTER_PRODUCT, params, new JsonHttpResponseHandler(){

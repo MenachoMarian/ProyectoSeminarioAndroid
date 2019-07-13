@@ -49,11 +49,14 @@ public class Adaptadorlista extends BaseAdapter {
         TextView nombre = convertView.findViewById(R.id.txtnombrepro);
         TextView precio = convertView.findViewById(R.id.txtpreciopro);
 
+
         //img.setImageResource(this.listaproductos.get(position).getImagen());
         Glide.with(context).load(listaproductos.get(position).getImagen()).into(img);
+
         nombre.setText(this.listaproductos.get(position).getNombrepro());
         precio.setText(this.listaproductos.get(position).getPreciopro());
-
+        //usar glide para recuperar las imagenes
+        Glide.with(context).load(listaproductos.get(position).getImagen()).circleCrop().into(img);
         return convertView;
     }
 }
