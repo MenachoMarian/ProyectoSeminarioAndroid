@@ -54,11 +54,10 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
                         String precio = obj.getString("precio");
                         String estado = obj.getString("estado");
                         String idpro = obj.getString("_id");
-<<<<<<< HEAD
                         //String imagen = obj.getInt("");
-=======
+
                         nompro = obj.getString("nombre");
->>>>>>> 90fe8a3794b4f681dd54a76975e5198b8f75cb5d
+
                         INFO = new DetalleProductoClase(titulo,descripcion,precio,estado,idpro);
                         root.cargarInformacion();
                     } catch (JSONException e) {
