@@ -276,6 +276,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         EditText stocks = findViewById(R.id.stock);
         EditText descripciones = findViewById(R.id.descripcion);
         Spinner cats = findViewById(R.id.btncategoria);
+        EditText estado = findViewById(R.id.editestado);
 
         ImageView image = findViewById(R.id.subim);
 
@@ -297,6 +298,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         params.add("descripcion",descripciones.getText().toString());
         //params.add("imagen" , image.getImageMatrix().toShortString());//no sale
         params.add("emailuser",email); //introduciendo el email
+        params.add("estado",estado.getText().toString());
 
         client.post(Utils.REGISTER_PRODUCT, params, new JsonHttpResponseHandler(){
             @Override

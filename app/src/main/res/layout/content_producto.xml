@@ -103,11 +103,13 @@
             android:hint="Descripción"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="130dp"
-            android:layout_height="30dp"
-            android:text="Imagen Aqui" />
+        <EditText
+            android:id="@+id/editestado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Disponible" />
 
     </LinearLayout>
 
@@ -130,13 +132,8 @@
 
             <ImageView
                 android:id="@+id/subim"
-<<<<<<< HEAD
-                android:layout_width="169dp"
-                android:layout_height="171dp"
-=======
                 android:layout_width="305dp"
                 android:layout_height="84dp"
->>>>>>> bf9ec7f410efd737bab196d27d207f2e10e08ff6
                 android:layout_weight="1"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
 
@@ -173,11 +170,7 @@
         <Button
             android:id="@+id/btnregistropro"
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="match_parent"
-=======
             android:layout_height="59dp"
->>>>>>> bf9ec7f410efd737bab196d27d207f2e10e08ff6
             android:text="Registrar Producto" />
     </LinearLayout>
 

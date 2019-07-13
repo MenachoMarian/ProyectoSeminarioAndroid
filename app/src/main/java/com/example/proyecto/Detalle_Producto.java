@@ -83,7 +83,6 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         this.precio = findViewById(R.id.txtprecio);
         this.estado = findViewById(R.id.txtestado);
 
-        this.imagen = findViewById(R.id.imgbig);
 
         //Botones
         Button btncita = findViewById(R.id.btncita);
