@@ -72,6 +72,7 @@ public class lista_productos extends AppCompatActivity implements View.OnClickLi
                             Casillas item = new Casillas();
                             item.setNombrepro(obj.getString("nombre"));
                             item.setPreciopro(obj.getString("precio"));
+                            item.setImagen(obj.getString("picture"));
                             list_data.add(item);
                         }
 

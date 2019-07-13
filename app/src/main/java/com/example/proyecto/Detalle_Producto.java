@@ -60,8 +60,9 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
                         String precio = obj.getString("precio");
                         String estado = obj.getString("estado");
                         String idpro = obj.getString("_id");
+                        String img = obj.getString("picture");
                         nompro = obj.getString("nombre");
-                        INFO = new DetalleProductoClase(titulo,descripcion,precio,estado,idpro);
+                        INFO = new DetalleProductoClase(titulo,descripcion,precio,estado,idpro,img);
                         root.cargarInformacion();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -77,6 +78,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         this.descripcion.setText(INFO.getDescripcion());
         this.precio.setText(INFO.getPrecio());
         this.estado.setText(INFO.getEstado());
+        //M ,this.imagen.setImageResource(Integer.parseInt(INFO.getImagen()));
     }
 
     private void loadComponents() {
@@ -87,6 +89,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         this.descripcion = findViewById(R.id.txtdescripcion);
         this.precio = findViewById(R.id.txtprecio);
         this.estado = findViewById(R.id.txtestado);
+        this.imagen = findViewById(R.id.imgbig);
 
 
 

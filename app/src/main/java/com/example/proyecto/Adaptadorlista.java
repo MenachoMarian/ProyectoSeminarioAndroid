@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class Adaptadorlista extends BaseAdapter {
@@ -43,11 +45,12 @@ public class Adaptadorlista extends BaseAdapter {
             LayoutInflater inflate = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflate.inflate(R.layout.listaformato, null);
         }
-        //ImageView img = convertView.findViewById(R.id.imgproducto);
+        ImageView img = convertView.findViewById(R.id.imgproducto);
         TextView nombre = convertView.findViewById(R.id.txtnombrepro);
         TextView precio = convertView.findViewById(R.id.txtpreciopro);
 
         //img.setImageResource(this.listaproductos.get(position).getImagen());
+        Glide.with(context).load(listaproductos.get(position).getImagen()).into(img);
         nombre.setText(this.listaproductos.get(position).getNombrepro());
         precio.setText(this.listaproductos.get(position).getPreciopro());
 

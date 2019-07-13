@@ -1,7 +1,7 @@
 package com.example.proyecto;
 
 public class Casillas {
-    private  Integer imagen;
+    private  String imagen;
     private String nombrepro;
     private String preciopro;
 
@@ -16,11 +16,11 @@ public class Casillas {
     private String idpro;
 
 
-    public Integer getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(Integer imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

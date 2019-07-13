@@ -1,14 +1,19 @@
 package com.example.proyecto;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,8 +30,11 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -135,6 +143,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         //declaramos variables
         final int COD_GALERIA=10;
         final int COD_CAMERA=11;
+        String path;
 
         private void cargarImagen() {
             final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
@@ -161,7 +170,17 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
 
         private void tomarFotografia() {
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            this.startActivityForResult(camera,COD_CAMERA);
+            FileAndPath fileAndPath = createFile(path,getApplicationContext());
+            File file = fileAndPath.getFile();
+            path = fileAndPath.getPath();
+            //this.startActivityForResult(camera,COD_CAMERA);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri fileuri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
+                camera.putExtra(MediaStore.EXTRA_OUTPUT, fileuri);
+            } else {
+                camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+            }
+            startActivityForResult(camera, COD_CAMERA);
         }
 
     @Override
@@ -170,16 +189,27 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         super.onActivityResult(requestCode,resultCode,data);
         if (COD_GALERIA == requestCode){
             if (data != null){
-                Uri img = data.getData();
-                image .setImageURI(img);
+                Uri imgPath=data.getData();
+                image.setImageURI(imgPath);
+                path = getRealPathFromURI(this,imgPath);
+                Toast.makeText(producto.this, path, Toast.LENGTH_SHORT).show();
             }
         }
         if (COD_CAMERA == requestCode){
-            if (data != null){
+            /*if (data != null){
                 Bundle infornation = data.getExtras();
                 Bitmap img = (Bitmap) infornation.get("data");
                 image.setImageBitmap(img);
-            }
+            }*/
+            loadImageCamera();
+        }
+    }
+
+    private void loadImageCamera() {
+        Bitmap imgag = BitmapFactory.decodeFile(path);
+        if(image != null) {
+            image.setImageBitmap(imgag);
+
         }
     }
 
@@ -224,6 +254,10 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
             //spinner.getSelectedItemPosition(); // recuperando posición
         }
 
+
+
+
+
     private void sendData() {
         EditText nombres = findViewById(R.id.namep);
         EditText precios = findViewById(R.id.precio);
@@ -234,6 +268,11 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
 
 
         String email = Utils.EMAIL_USER; //recibiendo email del login
+
+        if (path == null || path.equals("") ){
+            Toast.makeText(this, "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -249,15 +288,95 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         client.post(Utils.REGISTER_PRODUCT, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                if (response.has("nombre")){
+                /*if (response.has("nombre")){
                     Toast.makeText(producto.this, "Producto registrado con éxito", Toast.LENGTH_SHORT).show();
                     Intent lista = new Intent(producto.this, lista_productos.class);
                     startActivity(lista);
+                }*/
+                try {
+                    String id = response.getString("_id");
+                    if (id != null){
+                        AsyncHttpClient imagen = new AsyncHttpClient();
+                        RequestParams paramsimagen = new RequestParams();
+                        File file = new File(path);
+                        try {
+                            paramsimagen.put("img", file);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        imagen.post(Utils.REGISTER_IMAGE_PRODUCT+id, paramsimagen, new JsonHttpResponseHandler(){
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                Toast.makeText(producto.this, "Éxito", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        Toast.makeText(producto.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                        path = "";
+                        Intent lista = new Intent(producto.this, lista_productos.class);
+                        startActivity(lista);
+                    } else {
+                        Toast.makeText(producto.this, "Error en el ID", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });
     }
 
 
+
+
+    // aqui nos devolvera la direccion del file path
+
+    public static class FileAndPath{
+        File file;
+        String path;
+
+        public FileAndPath(File file, String path) {
+            this.file = file;
+            this.path = path;
+        }
+        public File getFile() {
+            return file;
+        }
+        public String getPath() {
+            return path;
+        }
+    }
+
+    public static FileAndPath createFile(String path, Context c) {
+        //Logica de creado
+        File file = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_PICTURES);
+        if (!file.exists()) {
+            file.mkdirs();
+            //Toast.makeText(c,"crea un archivo mkdirs",Toast.LENGTH_LONG).show();
+        }
+
+        //generar el nombre
+        String name = "";
+        if (file.exists()) {
+            name = "IMG_" + System.currentTimeMillis() / 1000 + ".jpg";
+        }
+        path = file.getAbsolutePath() + File.separator + name;
+        File fileimg = new File(path);
+        //Toast.makeText(c,"este es el path "+path,Toast.LENGTH_LONG).show();
+        //Toast.makeText(c,"este es el file img "+fileimg,Toast.LENGTH_LONG).show();
+        return new FileAndPath(fileimg,path);
+    }
+    //Aqui recuperamos la url a partir de la imagen
+    public static String getRealPathFromURI(Context context, Uri contentURI) {
+        String result = null;
+        Cursor cursor = context.getContentResolver().query(contentURI,
+                null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int idx = cursor
+                    .getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
 
 }
