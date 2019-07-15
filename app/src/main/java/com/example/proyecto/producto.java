@@ -1,8 +1,6 @@
 package com.example.proyecto;
 
 
-import android.app.Activity;
-
 import android.Manifest;
 
 import android.app.AlertDialog;
@@ -22,21 +20,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-
 //import android.support.v7.app.AlertDialog;
-import android.support.v4.content.FileProvider;
-
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import androidx.core.content.FileProvider;
 
 
 //import android.support.v7.app.AlertDialog;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,9 +36,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.ImageView;
-import android.view.View.OnClickListener;
-import android.graphics.Bitmap;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;

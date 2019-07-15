@@ -1,14 +1,24 @@
 package com.example.proyecto;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import android.widget.Button;
@@ -24,16 +34,21 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Cita extends AppCompatActivity implements View.OnClickListener{
+public class Cita extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     private String idprodu, nompro;
     TextView nomproducto;
     EditText efecha,ehora,cantidad;
+    private MapView map;
+    private GoogleMap mMap;
+    private Geocoder geocoder;
+    private LatLng mainposition;
    // Button btnfecha, btnregistrocita;
     private int dia,mes,anio,hora,minutos;
 
@@ -45,6 +60,14 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_cita);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //mapa
+        map = findViewById(R.id.mapView);
+        map.onCreate(savedInstanceState);
+        map.onResume();
+        MapsInitializer.initialize(this);
+        map.getMapAsync(this);
+        geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
 
         //RECUPERANDO EL ID y el nombre DEL PRODUCTO QUE SE ENVIA AL HACER CLICK
         idprodu = this.getIntent().getExtras().getString("idpro");
@@ -70,15 +93,17 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         this.cantidad = findViewById(R.id.cantidadcita);
         this.nomproducto = findViewById(R.id.txtnombrecita);
 
+
+
         Button btnhora = findViewById(R.id.btnhora);
         Button btnfecha = findViewById(R.id.btnfecha);
         Button btnregistro = findViewById(R.id.btnregistrocita);
-        Button btnubicacion = findViewById( R.id.btn);
+        //Button btnubicacion = findViewById( R.id.btnubicacion);
 
         btnfecha.setOnClickListener(this);
         btnhora.setOnClickListener(this);
         btnregistro.setOnClickListener(this);
-        btnubicacion.setOnClickListener( this );
+       // btnubicacion.setOnClickListener( this );
 
         nomproducto.setText(nompro);
 
@@ -118,12 +143,11 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
                 timePickerDialog.show();
                 break;
             }
-            case R.id.btn : {
-                Intent maps = new Intent(Cita.this, maps.class);
+            /*case R.id.btnubicacion : {
+                Intent maps = new Intent(Cita.this,Maps.class);
                 startActivity(maps);
-
                 break;
-            }
+            }*/
             case R.id.btnregistrocita: {
                 sendDAta();
                 break;
@@ -158,5 +182,57 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         });
 
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        //-19.5597641,-65.7633884
+        //-19.5730936,-65.7559122
+        LatLng potosi = new LatLng(-19.0429,  -65.2554);
+        mainposition = potosi;
+        mMap.addMarker(new MarkerOptions().position(potosi).title("Lugar").zIndex(18).draggable(true));
+        mMap.setMinZoomPreference(15);
+        mMap.moveCamera( CameraUpdateFactory.newLatLng(potosi));
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                mainposition = marker.getPosition();
+                String street_string = getStreet(marker.getPosition().latitude, marker.getPosition().longitude);
+                //street.setText(street_string);
+            }
+        });
+    }
+
+    public String getStreet (Double lat, Double log) {
+        List<Address> addresses;
+        String result = "";
+        try {
+            addresses = geocoder.getFromLocation(lat, log, 1);
+            result += addresses.get(0).getThoroughfare();
+
+            /*for (int i = 0; i < addresses.size(); i++) {
+                if (addresses.get(i).getThoroughfare()!=null)
+                result += addresses.get(i).getThoroughfare() + ",";
+            }*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
 
 }

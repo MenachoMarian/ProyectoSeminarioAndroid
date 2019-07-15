@@ -24,7 +24,7 @@
 
     <string name="error_login">El sistema no puede conectarse a google </string>
     <string name="server_client_id"> 430369553563-0nbaf0b1dk03qn32270csslcfvlltve4.apps.googleusercontent.com </string>
-    <string name="title_activity_maps">maps</string>
-    <string name="google_maps_key">AIzaSyBomETDQEvMgoKXdbaPRddU3J_yIP3wOp4</string>
+    <string name="title_activity_maps">Map</string>
+
 
 </resources>
