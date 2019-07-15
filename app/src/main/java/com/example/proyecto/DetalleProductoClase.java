@@ -7,15 +7,15 @@ public class DetalleProductoClase {
     private String descripcion;
     private String precio;
     private String estado;
-    //private Int imagen;
+    private String imagen;
     private String idpro;
 
-    public DetalleProductoClase(String titulo, String descripcion, String precio, String estado, String idpro) {
+    public DetalleProductoClase(String titulo, String descripcion, String precio, String estado, String idpro, String imagen) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.estado = estado;
-        //this.imagen = imagen;
+        this.imagen = imagen;
         this.idpro = idpro;
     }
 
@@ -59,11 +59,11 @@ public class DetalleProductoClase {
         this.estado = estado;
     }
 
-    /*public Intent getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(Intent imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
-    }*/
+    }
 }

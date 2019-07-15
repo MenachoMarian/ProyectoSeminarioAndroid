@@ -82,7 +82,7 @@ public class BuscarProducto extends AppCompatActivity implements AdapterView.OnI
                             Casillas item = new Casillas();
                             item.setNombrepro(obj.getString("nombre"));
                             item.setPreciopro(obj.getString("precio"));
-                            item.setImagen(obj.getInt("imagen"));
+                            //item.setImagen(obj.getInt("imagen"));
                             item.setIdpro(obj.getString("_id"));
                             list_data.add(item);
                         }
