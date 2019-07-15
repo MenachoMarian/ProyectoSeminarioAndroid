@@ -130,15 +130,10 @@
 
             <ImageView
                 android:id="@+id/subim"
-<<<<<<< HEAD
+
                 android:layout_width="169dp"
-                android:layout_height="171dp"
-=======
-                android:layout_width="305dp"
-                android:layout_height="84dp"
->>>>>>> bf9ec7f410efd737bab196d27d207f2e10e08ff6
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_menu_camera" />
+                android:layout_height="171dp"></ImageView>
+
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline"
@@ -173,11 +168,9 @@
         <Button
             android:id="@+id/btnregistropro"
             android:layout_width="match_parent"
-<<<<<<< HEAD
+
             android:layout_height="match_parent"
-=======
-            android:layout_height="59dp"
->>>>>>> bf9ec7f410efd737bab196d27d207f2e10e08ff6
+
             android:text="Registrar Producto" />
     </LinearLayout>
 

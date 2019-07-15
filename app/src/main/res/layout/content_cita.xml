@@ -132,6 +132,14 @@
             android:inputType="textPersonName" />
 
         <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFC107"
+            android:text="Ubicación:"
+            android:textSize="12sp" />
+
+        <Button
             android:id="@+id/btnregistrocita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

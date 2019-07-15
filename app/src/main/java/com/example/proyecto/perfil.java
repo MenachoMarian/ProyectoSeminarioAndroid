@@ -52,8 +52,8 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-           /* case R.id.btnEditP:{
-                Intent perfil = new Intent(this,EditarPerfil.class);
+            /*case R.id.btnPerfil:{
+                Intent perfil = new Intent(this,Cita.class);
                 startActivity(perfil);
                 break;
             }*/

@@ -38,6 +38,7 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
     private int dia,mes,anio,hora,minutos;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +73,12 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
         Button btnhora = findViewById(R.id.btnhora);
         Button btnfecha = findViewById(R.id.btnfecha);
         Button btnregistro = findViewById(R.id.btnregistrocita);
+        Button btnubicacion = findViewById( R.id.btn);
 
         btnfecha.setOnClickListener(this);
         btnhora.setOnClickListener(this);
         btnregistro.setOnClickListener(this);
+        btnubicacion.setOnClickListener( this );
 
         nomproducto.setText(nompro);
 
@@ -113,6 +116,12 @@ public class Cita extends AppCompatActivity implements View.OnClickListener{
                     }
                 },hora,minutos,false);
                 timePickerDialog.show();
+                break;
+            }
+            case R.id.btn : {
+                Intent maps = new Intent(Cita.this, maps.class);
+                startActivity(maps);
+
                 break;
             }
             case R.id.btnregistrocita: {
