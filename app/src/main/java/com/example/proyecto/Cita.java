@@ -44,11 +44,14 @@ import cz.msebera.android.httpclient.Header;
 public class Cita extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     private String idprodu, nompro;
     TextView nomproducto;
-    EditText efecha,ehora,cantidad;
+    EditText efecha,ehora,cantidad,ubicacion;
     private MapView map;
     private GoogleMap mMap;
     private Geocoder geocoder;
     private LatLng mainposition;
+    double Lat = 0.0;
+    double Lng = 0.0;
+
    // Button btnfecha, btnregistrocita;
     private int dia,mes,anio,hora,minutos;
 
@@ -92,21 +95,17 @@ public class Cita extends AppCompatActivity implements View.OnClickListener, OnM
         this.ehora = findViewById(R.id.ehora);
         this.cantidad = findViewById(R.id.cantidadcita);
         this.nomproducto = findViewById(R.id.txtnombrecita);
-
-
+        this.ubicacion= findViewById( R.id.txt_ubicacion);
 
         Button btnhora = findViewById(R.id.btnhora);
         Button btnfecha = findViewById(R.id.btnfecha);
         Button btnregistro = findViewById(R.id.btnregistrocita);
-        //Button btnubicacion = findViewById( R.id.btnubicacion);
 
         btnfecha.setOnClickListener(this);
         btnhora.setOnClickListener(this);
         btnregistro.setOnClickListener(this);
-       // btnubicacion.setOnClickListener( this );
 
         nomproducto.setText(nompro);
-
 
 
     }
@@ -143,11 +142,6 @@ public class Cita extends AppCompatActivity implements View.OnClickListener, OnM
                 timePickerDialog.show();
                 break;
             }
-            /*case R.id.btnubicacion : {
-                Intent maps = new Intent(Cita.this,Maps.class);
-                startActivity(maps);
-                break;
-            }*/
             case R.id.btnregistrocita: {
                 sendDAta();
                 break;
@@ -156,32 +150,7 @@ public class Cita extends AppCompatActivity implements View.OnClickListener, OnM
         }
     }
 
-    private void sendDAta() {
-
-        String email = Utils.EMAIL_USER; //recibiendo email del login
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.add("fecha",efecha.getText().toString());
-        params.add("hora",ehora.getText().toString());
-        params.add("emailuser",email);
-        params.add("idpro",idprodu);
-        params.add("nompreproducto",nompro);
-        params.add("cantidadprodu",cantidad.getText().toString());
-
-        client.post(Utils.REGISTER_CITA, params,new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                if (response.has("fecha")){
-                    Toast.makeText(Cita.this, "Cita registrada correctamente", Toast.LENGTH_SHORT).show();
-                    Intent cita = new Intent(Cita.this, ListaCitas.class);
-                    startActivity(cita);
-                }
-            }
-        });
-
-    }
+    //MAPA
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -200,21 +169,18 @@ public class Cita extends AppCompatActivity implements View.OnClickListener, OnM
             public void onMarkerDragStart(Marker marker) {
 
             }
-
             @Override
             public void onMarkerDrag(Marker marker) {
-
             }
-
             @Override
             public void onMarkerDragEnd(Marker marker) {
                 mainposition = marker.getPosition();
                 String street_string = getStreet(marker.getPosition().latitude, marker.getPosition().longitude);
-                //street.setText(street_string);
+                ubicacion.setText(street_string);
             }
         });
-    }
 
+    }
     public String getStreet (Double lat, Double log) {
         List<Address> addresses;
         String result = "";
@@ -229,10 +195,32 @@ public class Cita extends AppCompatActivity implements View.OnClickListener, OnM
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
 
+    private void sendDAta() {
 
+        String email = Utils.EMAIL_USER; //recibiendo email del login
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.add("fecha",efecha.getText().toString());
+        params.add("hora",ehora.getText().toString());
+        params.add("emailuser",email);
+        params.add("idpro",idprodu);
+        params.add("nompreproducto",nompro); //no recibe
+        params.add("cantidadprodu",cantidad.getText().toString());
+        params.add("lugar",ubicacion.getText().toString());
+
+        client.post(Utils.REGISTER_CITA, params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                if (response.has("fecha")){
+                    Toast.makeText(Cita.this, "Cita registrada correctamente", Toast.LENGTH_SHORT).show();
+                    Intent cita = new Intent(Cita.this, ListaCitas.class);
+                    startActivity(cita);
+                }
+            }
+        });
+    }
 }

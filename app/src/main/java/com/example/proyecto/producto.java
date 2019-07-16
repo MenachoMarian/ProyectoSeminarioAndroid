@@ -33,6 +33,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +53,11 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class producto extends AppCompatActivity implements View.OnClickListener {
+
+    private String idprodu;
+    private EditText nombres, precios, stocks,descripciones, estados;
+    private Spinner cats;
+    private ImageView image;
 
     ArrayList<String> categoria;
 
@@ -79,6 +86,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
                         .setAction("Action", null).show();
             }
         });*/
+
         setSpinner();
         loadComponents();
     }
@@ -137,12 +145,26 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         //fin de permisos de camara y almacenamiento
         //recuperamos variables
         private void loadComponents() {
+
+            //CARGANDO COMPONENTES
+            this.nombres = findViewById(R.id.namep);
+            this.precios = findViewById(R.id.precio);
+            this.stocks = findViewById(R.id.stock);
+            this.descripciones = findViewById(R.id.descripcion);
+            this.cats = findViewById(R.id.btncategoria);
+            this.estados = findViewById(R.id.editestado);
+            this.image = findViewById(R.id.subim);
+
+            //CARGAR BOTONES
             Button btnregistrarpro = findViewById(R.id.btnregistropro);
             btnregistrarpro.setOnClickListener(this);
             //parte de camara
             btn = (Button)findViewById(R.id.subimg);
             btn.setOnClickListener(this);
             img = findViewById(R.id.subim);
+
+            ImageButton btnhome = findViewById(R.id.btnhome5);
+            btnhome.setOnClickListener(this);
         }
 
         @Override
@@ -156,6 +178,10 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
                 case R.id.subimg:{
                     cargarImagen();
                     break;
+                }
+                case R.id.btnhome5: {
+                    Intent main = new Intent(producto.this, MainActivity.class);
+                    startActivity(main);
                 }
             }
         }
@@ -218,13 +244,9 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
             }
         }
         if (COD_CAMERA == requestCode){
-
+            loadImageCamera();
         }
     }
-
-
-
-
 
     private void loadImageCamera() {
         Bitmap imgag = BitmapFactory.decodeFile(path);
@@ -258,19 +280,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
             //spinner.getSelectedItemPosition(); // recuperando posición
         }
 
-
-
-
-
     private void sendData() {
-        EditText nombres = findViewById(R.id.namep);
-        EditText precios = findViewById(R.id.precio);
-        EditText stocks = findViewById(R.id.stock);
-        EditText descripciones = findViewById(R.id.descripcion);
-        Spinner cats = findViewById(R.id.btncategoria);
-        EditText estado = findViewById(R.id.editestado);
-
-        ImageView image = findViewById(R.id.subim);
 
         String email = Utils.EMAIL_USER; //recibiendo email del login
 
@@ -290,7 +300,7 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
         params.add("descripcion",descripciones.getText().toString());
         //params.add("imagen" , image.getImageMatrix().toShortString());//no sale
         params.add("emailuser",email); //introduciendo el email
-        params.add("estado",estado.getText().toString());
+        params.add("estado",estados.getText().toString());
 
         client.post(Utils.REGISTER_PRODUCT, params, new JsonHttpResponseHandler(){
             @Override
@@ -330,9 +340,6 @@ public class producto extends AppCompatActivity implements View.OnClickListener 
             }
         });
     }
-
-
-
 
     // aqui nos devolvera la direccion del file path
 

@@ -38,7 +38,7 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/btnhomebusqueda"
             android:layout_width="50dp"
             android:layout_height="70dp"
             android:layout_weight="1"
