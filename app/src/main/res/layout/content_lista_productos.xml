@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -25,26 +25,28 @@
 
         <ImageView
             android:id="@+id/imageView11"
-            android:layout_width="7dp"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/logo" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_weight="1"
+            android:fontFamily="@font/gabriela"
+            android:gravity="center"
             android:text="Listar Productos para vender"
             android:textAlignment="center" />
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="8dp"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/btnhomelista"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/casa" />
+            app:srcCompat="@drawable/rombo" />
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +83,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         this.descripcion = findViewById(R.id.txtdescripcion);
         this.precio = findViewById(R.id.txtprecio);
         this.estado = findViewById(R.id.txtestado);
+        this.imagen = findViewById(R.id.imgbig);
 
 
         //Botones
@@ -89,6 +91,9 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
         Button btnchat = findViewById(R.id.btnchat);
         btncita.setOnClickListener(this);
         btnchat.setOnClickListener(this);
+
+        ImageButton btnhome = findViewById(R.id.btnhomedetalles);
+        btnhome.setOnClickListener(this);
     }
 
     @Override
@@ -110,6 +115,10 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
                 Intent chatview = new Intent(Detalle_Producto.this, Chat.class);
                 startActivity(chatview);
                 break;
+            }
+            case R.id.btnhomedetalles: {
+                Intent main = new Intent(Detalle_Producto.this, MainActivity.class);
+                startActivity(main);
             }
 
         }

@@ -7,7 +7,9 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class lista_productos extends AppCompatActivity implements View.OnClickListener{
+public class lista_productos extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ArrayList<Casillas> list_data;
     private Adaptadorlista adapter;
@@ -48,13 +50,18 @@ public class lista_productos extends AppCompatActivity implements View.OnClickLi
 
     private void loadComponents(){
         Button btn3 = findViewById(R.id.btn3);
+        ImageButton btnhome = findViewById(R.id.btnhomelista);
         btn3.setOnClickListener(this);
+        btnhome.setOnClickListener(this);
 
         //Cargando adaptador
         ListView lista = findViewById(R.id.listproducto);
         adapter = new Adaptadorlista(this,list_data);
         //adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
+
+        //PARA ACCEDER A CADA ELEMENTO DE LA LISTA
+        lista.setOnItemClickListener(this);
     }
 
     private void loadData() {
@@ -72,6 +79,7 @@ public class lista_productos extends AppCompatActivity implements View.OnClickLi
                             item.setNombrepro(obj.getString("nombre"));
                             item.setPreciopro(obj.getString("precio"));
                             item.setImagen(obj.getString("picture"));
+                            item.setIdpro(obj.getString("_id"));
                             list_data.add(item);
                         }
 
@@ -93,6 +101,18 @@ public class lista_productos extends AppCompatActivity implements View.OnClickLi
                 startActivity(agregar_producto);
                 break;
             }
+            case R.id.btnhomelista: {
+                Intent main = new Intent(lista_productos.this, MainActivity.class);
+                startActivity(main);
+            }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String idpro = this.list_data.get(position).getIdpro();
+        Intent detallepro = new Intent(lista_productos.this, ProductoUsuario.class);
+        detallepro.putExtra("idpro",idpro);
+        this.startActivity(detallepro);
     }
 }

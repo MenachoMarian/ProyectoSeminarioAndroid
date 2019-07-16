@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Trabajo extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class Trabajo extends AppCompatActivity implements AdapterView.OnItemClickListener , View.OnClickListener{
 
     private ArrayList<Casillas> list_data;
     private Adaptadorlista adapter;
@@ -41,6 +42,9 @@ public class Trabajo extends AppCompatActivity implements AdapterView.OnItemClic
 
         //PARA ACCEDER A CADA ELEMENTO DE LA LISTA
         lista.setOnItemClickListener(this);
+
+        ImageButton btnhome = findViewById(R.id.btnhome2);
+        btnhome.setOnClickListener(this);
 
     }
 
@@ -78,5 +82,15 @@ public class Trabajo extends AppCompatActivity implements AdapterView.OnItemClic
         Intent detallepro = new Intent(Trabajo.this, Detalle_Producto.class);
         detallepro.putExtra("idpro",idpro);
         this.startActivity(detallepro);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnhome2: {
+                Intent main = new Intent(Trabajo.this, MainActivity.class);
+                startActivity(main);
+            }
+        }
     }
 }

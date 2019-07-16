@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.auth.BasicUserPrincipal;
 
-public class BuscarProducto extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class BuscarProducto extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ArrayList<Casillas> list_data;
     private Adaptadorlista adapter;
@@ -38,6 +40,10 @@ public class BuscarProducto extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void loadComponents() {
+
+        ImageButton btnhome = findViewById(R.id.btnhomebusqueda);
+        btnhome.setOnClickListener(this);
+
 
         //Cargando adaptador
         ListView lista = findViewById(R.id.listresultados);
@@ -106,5 +112,15 @@ public class BuscarProducto extends AppCompatActivity implements AdapterView.OnI
         Intent detallepro = new Intent(BuscarProducto.this, Detalle_Producto.class);
         detallepro.putExtra("idpro",idpro);
         this.startActivity(detallepro);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnhomebusqueda: {
+                Intent main = new Intent(BuscarProducto.this, MainActivity.class);
+                startActivity(main);
+            }
+        }
     }
 }

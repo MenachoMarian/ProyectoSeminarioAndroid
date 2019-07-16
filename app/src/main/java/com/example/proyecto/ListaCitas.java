@@ -1,7 +1,11 @@
 package com.example.proyecto;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ListaCitas extends AppCompatActivity {
+public class ListaCitas extends AppCompatActivity implements View.OnClickListener{
 
     private ArrayList<CitaConstructor> list_data;
     private AdaptadorListaCitas adapter;
@@ -37,6 +41,9 @@ public class ListaCitas extends AppCompatActivity {
         adapter = new AdaptadorListaCitas(this,list_data);
         //adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
+
+        ImageButton btnhome = findViewById(R.id.btnhomecitas);
+        btnhome.setOnClickListener(this);
     }
 
     private void loadData() {
@@ -63,5 +70,15 @@ public class ListaCitas extends AppCompatActivity {
                 } adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnhomecitas: {
+                Intent main = new Intent(ListaCitas.this, MainActivity.class);
+                startActivity(main);
+            }
+        }
     }
 }

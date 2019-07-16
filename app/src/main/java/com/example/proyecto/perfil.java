@@ -37,6 +37,9 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
 
     private void loadComponents(){
 
+        ImageButton btnhome = findViewById(R.id.btnhomeperfil);
+        btnhome.setOnClickListener(this);
+
             ImageButton producto = findViewById(R.id.btnProduct);
             ImageButton perfil = findViewById(R.id.btnPerfil);
             ImageButton cita = findViewById(R.id.btncitas);
@@ -66,6 +69,13 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
                 startActivity(citas);
                 break;
             }
+
+            case R.id.btnhomeperfil: {
+                    Intent main = new Intent(perfil.this, MainActivity.class);
+                    startActivity(main);
+                    break;
+            }
+
         }
     }
 }

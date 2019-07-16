@@ -51,7 +51,7 @@ public class Adaptadorlista extends BaseAdapter {
 
 
         //img.setImageResource(this.listaproductos.get(position).getImagen());
-        Glide.with(context).load(listaproductos.get(position).getImagen()).into(img);
+        //Glide.with(context).load(listaproductos.get(position).getImagen()).into(img);
 
         nombre.setText(this.listaproductos.get(position).getNombrepro());
         precio.setText(this.listaproductos.get(position).getPreciopro());
