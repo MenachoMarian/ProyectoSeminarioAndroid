@@ -3,9 +3,10 @@ package com.example.proyecto;
 public class Casillas {
 
     private  String imagen;
-
     private String nombrepro;
     private String preciopro;
+    private String idpro;
+
 
     public String getIdpro() {
         return idpro;
@@ -13,8 +14,6 @@ public class Casillas {
     public void setIdpro(String idpro) {
         this.idpro = idpro;
     }
-    private String idpro;
-
 
     public String getImagen() {
         return imagen;

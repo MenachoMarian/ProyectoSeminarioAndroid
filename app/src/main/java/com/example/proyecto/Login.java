@@ -37,12 +37,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     //variables
     private static final int PERMISSION_SING_IN = 1234;
     private GoogleApiClient GoogleApiClient;
-    private SignInButton btngoogle;
+    //private SignInButton btngoogle;
 
     FirebaseAuth firebaseAuth;
     //AlertDialog waiting_dialog = new SpotsDialog.Builder().setContext(this);
-
-
 
     private void firebaseAuthwithGoogle(AuthCredential credential) {
         firebaseAuth.signInWithCredential( credential )
@@ -101,7 +99,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         btnlogin.setOnClickListener(this);
         btnregistro.setOnClickListener(this);
         //escoger el boton de google y registrar el evento
-        btngoogle = findViewById(R.id.btngoogle);
+        SignInButton btngoogle = findViewById(R.id.btngoogle);
         btngoogle.setOnClickListener(this);
     }
     @Override
