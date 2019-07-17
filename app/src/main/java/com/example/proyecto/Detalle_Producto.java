@@ -119,6 +119,7 @@ public class Detalle_Producto extends AppCompatActivity implements View.OnClickL
             case R.id.btnhomedetalles: {
                 Intent main = new Intent(Detalle_Producto.this, MainActivity.class);
                 startActivity(main);
+                break;
             }
 
         }

@@ -8,6 +8,8 @@ public class Utils {
 
     public static String REGISTER_USER = HOST + "/v1.0/api/user";
     public static String LOGIN_USER = HOST + "/v1.0/api/login";
+    public static String GET_USER = HOST + "/v1.0/api/user?email=";
+    public static String GET_USER_ID = HOST + "/v1.0/api/user?id=";
 
     public static String GET_PRODUCT = HOST + "/v1.0/api/product";
     public static String REGISTER_PRODUCT = HOST + "/v1.0/api/product";
@@ -21,6 +23,6 @@ public class Utils {
 
     public static String TOKEN = "";
     public static String ID_USER = "";
-    public static String EMAIL_USER = ""; //A la hora del login se guardarà la contraseña para listar solo sus productos en su perfil
+    public static String EMAIL_USER = ""; //A la hora del login se guardarà el email para listar solo sus productos en su perfil
 
 }

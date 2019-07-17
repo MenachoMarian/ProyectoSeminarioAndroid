@@ -124,10 +124,12 @@ public class ProductoUsuario extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.btneliminar: {
                 eliminarData();
+                break;
             }
             case R.id.btnhomeproductousuario: {
                 Intent main = new Intent(ProductoUsuario.this, MainActivity.class);
                 startActivity(main);
+                break;
             }
 
         }

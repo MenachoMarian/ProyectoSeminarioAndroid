@@ -84,18 +84,19 @@ public class BuscarProducto extends AppCompatActivity implements AdapterView.OnI
                 for (int i = 0; i < response.length(); i++){
                     try {
                         JSONObject obj = response.getJSONObject(i);
-                        if (obj.has("nombre")){
-                            Casillas item = new Casillas();
-                            item.setNombrepro(obj.getString("nombre"));
-                            item.setPreciopro(obj.getString("precio"));
-                            //item.setImagen(obj.getInt("imagen"));
-                            item.setIdpro(obj.getString("_id"));
-                            list_data.add(item);
+                        if (!obj.getString("emailuser").equals(Utils.EMAIL_USER)){
+                            if (obj.has("nombre")){
+                                Casillas item = new Casillas();
+                                item.setNombrepro(obj.getString("nombre"));
+                                item.setPreciopro(obj.getString("precio"));
+                                //item.setImagen(obj.getInt("imagen"));
+                                item.setIdpro(obj.getString("_id"));
+                                list_data.add(item);
+                            }
+                            else {
+                                Toast.makeText(BuscarProducto.this, "No hay resultados", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else {
-                            Toast.makeText(BuscarProducto.this, "No hay resultados", Toast.LENGTH_SHORT).show();
-                        }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

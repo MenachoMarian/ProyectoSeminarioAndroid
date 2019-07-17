@@ -201,6 +201,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.perfil: {
                 if (!Utils.TOKEN.equals("")){  //VERIFICAR SI EL USUARIO YA ACCEDIÓ CON SU CUENTA PARA PODER INGRESAR A SU PERFIL, SI EL TOKEN ESTÁ VACÍO NO INGRESÓ AÚN
                     Intent perfil = new Intent(this, perfil.class);
+                    String email = Utils.EMAIL_USER;
+                    perfil.putExtra("email",email);
                     startActivity(perfil);
 
                 }else{
