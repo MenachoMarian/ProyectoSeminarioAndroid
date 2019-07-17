@@ -210,7 +210,7 @@ public class Cita extends AppCompatActivity implements View.OnClickListener, OnM
         params.add("idpro",idprodu);
         params.add("nompreproducto",nompro); //no recibe
         params.add("cantidadprodu",cantidad.getText().toString());
-        params.add("lugar",ubicacion.getText().toString());
+        //params.add("lugar",ubicacion.getText().toString());
 
         client.post(Utils.REGISTER_CITA, params,new JsonHttpResponseHandler(){
             @Override

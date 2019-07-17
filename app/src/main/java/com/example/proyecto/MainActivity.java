@@ -133,14 +133,14 @@ public class MainActivity extends AppCompatActivity
                 for (int i = 0; i < response.length(); i++){
                     try {
                         JSONObject obj = response.getJSONObject(i);
-                        Casillas item = new Casillas();
-                        item.setNombrepro(obj.getString("nombre"));
-                        item.setPreciopro(obj.getString("precio"));
-                        item.setIdpro(obj.getString("_id"));
-                        item.setImagen(obj.getString("picture"));
-                        list_data.add(item);
-
-
+                        if (!obj.getString("emailuser").equals(Utils.EMAIL_USER)){
+                            Casillas item = new Casillas();
+                            item.setNombrepro(obj.getString("nombre"));
+                            item.setPreciopro(obj.getString("precio"));
+                            item.setIdpro(obj.getString("_id"));
+                            item.setImagen(obj.getString("picture"));
+                            list_data.add(item);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

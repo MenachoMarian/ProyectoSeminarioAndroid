@@ -107,13 +107,16 @@ public class Hogar extends AppCompatActivity implements AdapterView.OnItemClickL
                 for (int i = 0; i < response.length(); i++){
                     try {
                         JSONObject obj = response.getJSONObject(i);
-                        if (obj.getString("categoria").equals("Hogar")){
-                            Casillas item = new Casillas();
-                            item.setNombrepro(obj.getString("nombre"));
-                            item.setPreciopro(obj.getString("precio"));
-                            item.setIdpro(obj.getString("_id"));
-                            list_data.add(item);
+                        if (!obj.getString("emailuser").equals(Utils.EMAIL_USER)){
+                            if (obj.getString("categoria").equals("Hogar")){
+                                Casillas item = new Casillas();
+                                item.setNombrepro(obj.getString("nombre"));
+                                item.setPreciopro(obj.getString("precio"));
+                                item.setIdpro(obj.getString("_id"));
+                                list_data.add(item);
+                            }
                         }
+
 
 
                     } catch (JSONException e) {
